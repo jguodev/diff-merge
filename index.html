@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/diff_merge.css">
+        <script src="js/doc_diff.js"></script>
+    </head>
+
+    <body>
+        <script>
+            var diff = new doc_diff();
+            var combine = '';
+
+            function launch() {
+                var v1 = document.getElementById('v1').value;
+                var v2 = document.getElementById('v2').value;
+                combine = diff.diff_main(v1, v2);
+                document.getElementById('edit').innerHTML = combine;
+            }
+
+            
+            function update(bid, sid) {
+            	console.log("clicked");
+                var elem = document.getElementById(bid);
+                // ignore the button text with del tag
+                if (elem.innerHTML.indexOf('<del') != -1) {
+                    document.getElementById(sid).textContent = '';
+                } else {
+                    document.getElementById(sid).textContent = elem.textContent;
+                }
+            	
+                elem.parentNode.removeChild(elem);
+            }
+
+            function undo() {
+                document.execCommand('undo', false, null);
+            }
+
+            function save() {
+                var editDiv = document.getElementById('edit');
+                var resultDiv = document.getElementById('result');
+                var result = diff.applyChanges(editDiv.innerHTML);
+               resultDiv.innerHTML = result;
+               resultDiv.innerHTML = resultDiv.textContent || resultDiv.innerText;
+            }
+        </script>
+
+        <form action="#" onsubmit="return false">
+            <h3>Instructions:</h3>
+                        <ol>
+                            <li>Type in the original text in the text area under Original Version.</li>
+                            <li>Type in the revised text in the text area under Revision Version.</li>
+                            <li>
+                                Click the button "compute diff", then the compared result which including the common texts and
+                            differences in both versions is displayed in the text area under "Edit".
+                            <ul>
+                                <li>
+                                    The difference in the revised version is displayed using <button class="button v2">red button</button>.
+                                </li>
+                                <li>
+                                    The difference in the original version is <span style="background-color:lightblue">blue highlighted</span>.
+                                </li>
+                                <li>
+                                    Unmarked texts are common between both versions.
+                                </li>
+                            </ul>
+                            </li>
+                            <li>
+                                The content under "Edit" is editable:
+                                <ul>
+                                    <li>Double click the red button to select from the revised version.</li>
+                                    <li>No action needs to be taken if staying with the original version.</li>
+                                    <li>Feel free to manually edit the content at any time. You can also click the undo button to cancel the change.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Once you are satisfied with the edition, click the button "apply changes", and then the combined
+                                version is displayed under "Result". If you want to make further changes, you can edit it Under "Edit"
+                                and click "apply changes" again whenever you are ready.
+                            </li>
+
+                        </ol>
+            <table width="100%">
+                <tr>
+                    <td width="50%">
+                        <h3>Original Version</h3>
+                        <textarea id="v1" style="width: 100%; font-size: 20px" rows="5"></textarea>
+                    </td>
+                    <td width="50%" height="100%">
+                        <h3>Revision Version</h3>
+                        <textarea id="v2" style="width: 100%; font-size: 20px" rows="5"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <p><input type="button" onClick="launch()" class="button compute" value="compute diff"></p>
+
+        <h3>Edit</h3>
+        <div id="edit" contenteditable="true" style="font-size: 20px; width: 100%; border: 1px solid gray;"></div>
+        <p>
+            <input type="button" onClick="undo()" class="button undo" value="undo">
+            <input type="button" onClick="save()" class="button" value="apply changes">
+        </p>
+
+        <h3>Result</h3>
+        <div id="result" class="div" style="font-size: 20px; width: 100%; border: 1px solid gray;"></div>
+
+    </body>
+</html>

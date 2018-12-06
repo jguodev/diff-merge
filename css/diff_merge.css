@@ -1,0 +1,61 @@
+li {
+  font-size: 20px;
+}
+
+.div {
+  height: 200px;
+  width: 50%;
+  background-color: powderblue;
+}
+
+.span {
+  font-size: 20px;
+}
+
+.button {
+  background-color: #4CAF50;
+  /* Green */
+  /*border: none;*/
+  color: white;
+  /*padding: 8px 10px;*/
+  height: 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.undo {
+  background-color: #555555;
+}
+
+.compute {
+  background-color: #008CBA;
+}
+
+.org {
+  background-color: #008CBA;
+}
+
+/* Blue */
+
+.v2 {
+  background-color: #f44336;
+}
+
+/* Red */
+
+.v3 {
+  background-color: #e7e7e7;
+  color: black;
+}
+
+/* Gray */
+
+.button5 {
+  background-color: #555555;
+}
+
+/* Black */
